@@ -32,8 +32,8 @@
                             <div class="hidden md:block">
                                 <div class="ms-10 flex items-baseline space-x-4">
                                     <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-white/5 hover:text-white" -->
-                                    <x-nav-link href="/home" type="button" onclick="{{ route('home') }}"
-                                        :active="request()->is('home')" aria-current="page">الصفحة
+                                    <x-nav-link href="/home" onclick="{{ route('home') }}" :active="request()->is('home')"
+                                        aria-current="page">الصفحة
                                         الرئيسية</x-nav-link>
                                     <x-nav-link href="/team" :active="request()->is('team')">الفريق</x-nav-link>
                                     <x-nav-link href="/projects" type="button" :active="request()->is('projects')">المشاريع</x-nav-link>

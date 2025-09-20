@@ -54,6 +54,6 @@ Route::get('/new-jobs', function () {
 })->name('new-jobs');
 
 Route::get('/job-details/{id}', function ($id) {
-    $jobs = Job::all();
-    return view('HW.job_details', ["job" => $jobs[$id]]);
+    $job = Job::find($id);
+    return view('HW.job_details', ["job" => $job]);
 })->name('job-details');
