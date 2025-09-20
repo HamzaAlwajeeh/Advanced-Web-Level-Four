@@ -53,10 +53,10 @@ Route::get('/job/{id}', function ($id) use ($jobs1) {
 Route::get('/new-jobs', [TaskController::class, 'index'])->name('new-jobs');
 Route::get('/job-details/{id}', [TaskController::class, 'find'])->name('job-details');
 
-// Route::get('/job-details/{id}', function ($id) {
-//     dd($id);
-//     // return view('HW.job_details', ["job" => $id]);
-// })->name('job-details');
+Route::get('/users', function () {
+
+    return view('HW2.users');
+})->name('users');
 
 
 
