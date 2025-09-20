@@ -40,6 +40,7 @@
                                     <x-nav-link href="/jobs" :active="request()->is('jobs')">الوظائف</x-nav-link>
                                     <x-nav-link href="/reports" :active="request()->is('reports')">التقارير</x-nav-link>
                                     <x-nav-link href="/new-jobs" :active="request()->is('new-jobs')">الوظائف الجديده</x-nav-link>
+                                    <x-nav-link href="/users" :active="request()->is('users')">الموظفين</x-nav-link>
                                     <x-nav-link href="#" :active="request()->is('#')">تسجيل
                                         الخروج</x-nav-link>
                                 </div>
