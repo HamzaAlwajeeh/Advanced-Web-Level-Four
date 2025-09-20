@@ -11,19 +11,15 @@
         <div class="mb-6">
             <span class="block text-gray-600 font-semibold mb-1">المهام:</span>
             <ul class="list-disc list-inside text-gray-700">
-                @foreach ($job['tasks'] as $task)
-                    <li>{{ $task }}</li>
-                @endforeach
+
+                <li>{{ $job['tasks'] }}</li>
+
             </ul>
         </div>
 
         <div class="mb-6">
             <span class="block text-gray-600 font-semibold mb-1">المهارات المطلوبة:</span>
-            <ul class="list-disc list-inside text-gray-700">
-                @foreach ($job['skills'] as $skill)
-                    <li>{{ $skill }}</li>
-                @endforeach
-            </ul>
+            <li>{{ $job['skill'] }}</li>
         </div>
 
         <div class="mb-4">
