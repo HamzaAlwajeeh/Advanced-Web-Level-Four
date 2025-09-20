@@ -20,7 +20,7 @@ class TaskController extends Controller
             abort(404);
         }
         return view(
-            'HW.new_jobs',
+            'HW.job_details',
             compact('job')
         );
     }
