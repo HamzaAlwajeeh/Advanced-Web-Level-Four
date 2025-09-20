@@ -4,6 +4,8 @@ use App\Http\Controllers\TaskController;
 use App\Models\Job;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\EmployeeController;
+
 $jobs1 = [
     [
         'id' => 0,
@@ -53,10 +55,7 @@ Route::get('/job/{id}', function ($id) use ($jobs1) {
 Route::get('/new-jobs', [TaskController::class, 'index'])->name('new-jobs');
 Route::get('/job-details/{id}', [TaskController::class, 'find'])->name('job-details');
 
-Route::get('/users', function () {
-
-    return view('HW2.users');
-})->name('users');
+Route::get('/users', [EmployeeController::class, 'index'])->name('users');
 
 
 

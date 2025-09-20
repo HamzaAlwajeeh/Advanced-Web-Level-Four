@@ -14,23 +14,17 @@
                     <th class="px-6 py-4">اسم المهمة</th>
                 </tr>
             </thead>
-            <tbody class="text-gray-700 text-center text-sm">
-                <tr class="bg-white border-b hover:bg-blue-50 transition duration-300">
-                    <td class="px-6 py-4">1</td>
-                    <td class="px-6 py-4">Hamza</td>
-                    <td class="px-6 py-4">Alwajeeh</td>
-                    <td class="px-6 py-4">21</td>
-                    <td class="px-6 py-4">Flutter Developer</td>
-                    <td class="px-6 py-4">E-Commerce</td>
-                </tr>
-                <tr class="bg-gray-50 border-b hover:bg-blue-50 transition duration-300">
-                    <td class="px-6 py-4">2</td>
-                    <td class="px-6 py-4">Hamza</td>
-                    <td class="px-6 py-4">Alwajeeh</td>
-                    <td class="px-6 py-4">22</td>
-                    <td class="px-6 py-4">Flutter Developer</td>
-                    <td class="px-6 py-4">E-commerce App</td>
-                </tr>
+            @foreach ($employees as $employee)
+                <tbody class="text-gray-700 text-center text-sm">
+                    <tr class="bg-white border-b hover:bg-blue-50 transition duration-300">
+                        <td class="px-6 py-4">{{ $employee->id }}</td>
+                        <td class="px-6 py-4">{{ $employee->firstName }}</td>
+                        <td class="px-6 py-4">{{ $employee->lastName }}</td>
+                        <td class="px-6 py-4">{{ $employee->Age }}</td>
+                        <td class="px-6 py-4">{{ $employee->job }}</td>
+                        {{-- <td class="px-6 py-4">{{ $employee->taskName }}</td> --}}
+                    </tr>
+            @endforeach
             </tbody>
         </table>
     </div>
