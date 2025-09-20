@@ -26,6 +26,10 @@
             <span class="block text-gray-600 font-semibold mb-1">الخبرة المطلوبة:</span>
             <p class="text-gray-700">{{ $job['experience'] }}</p>
         </div>
+        <div class="mb-4">
+            <span class="block text-gray-600 font-semibold mb-1"> اسم الموظف:</span>
+            <p class="text-gray-700">{{ $job->employee->firstName }}</p>
+        </div>
         <div>
             <span class="block text-gray-600 font-semibold mb-1">آخر موعد للتقديم:</span>
             <p class="text-red-600 font-bold">{{ $job['deadline'] }}</p>

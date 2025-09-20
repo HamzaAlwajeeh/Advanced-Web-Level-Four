@@ -15,7 +15,7 @@ class TaskController extends Controller
 
     public static function find($id)
     {
-        $job = Task::find($id);
+        $job = Task::with('employee')->find($id);
         if (!$job) {
             abort(404);
         }
