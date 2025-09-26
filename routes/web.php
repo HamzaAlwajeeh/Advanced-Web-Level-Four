@@ -52,7 +52,9 @@ Route::get('/job/{id}', function ($id) use ($jobs1) {
     return view('job', ["job" => $jobs1[$id]]);
 })->name('job');
 
+// this will show all jobs 
 Route::get('/new-jobs', [TaskController::class, 'index'])->name('new-jobs');
+// this will show one job by id
 Route::get('/job-details/{id}', [TaskController::class, 'find'])->name('job-details');
 //this will show all users
 Route::get('/users', [EmployeeController::class, 'index'])->name('users');
