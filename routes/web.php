@@ -62,13 +62,16 @@ Route::get('/job-details/{id}', [TaskController::class, 'find'])->name('job-deta
 //this will show all users
 Route::get('/users', [EmployeeController::class, 'index'])->name('users');
 
+// جلب البيانات من الريكوست
 Route::get('/get-name', function (Request $request) {
-    // php Request
-    // dd($_REQUEST['name']); // يعطيني عنصر واحد فقط
-    // Laravel Request Object
-    $name = $request->input('name'); // يعطيني عنصر واحد فقط
-    $age = $request->input('age'); // يعطيني عنصر واحد فقط
-    $all_data = $request->all(); // يعطيني كل العناصر
+    // استدعاء قيمة معينة من الريكوست باستخدام PHP العادي
+    // dd($_REQUEST['name']); // يعرض عنصر واحد فقط ويتوقف التنفيذ
+
+    // استدعاء البيانات باستخدام كائن Request في Laravel
+    $name = $request->input('name'); // جلب قيمة الحقل "name" من الريكوست
+    $age = $request->input('age'); // جلب قيمة الحقل "age" من الريكوست
+    $all_data = $request->all(); // جلب جميع البيانات القادمة من الريكوست
+
     return [
         'name' => $name,
         'age' => $age,
@@ -77,13 +80,12 @@ Route::get('/get-name', function (Request $request) {
 });
 
 
-
+// جلب الهيدر من الريكوست
 Route::get('/get-headers', function (Request $request) {
-    // get one header
-    $oneHeader = $request->header('host');
-    $host = $request->headers->get('host');
-    // get All Headers
-    $headers = $request->headers->all();
+    $oneHeader = $request->header('host'); // جلب هيدر محدد بالاسم
+    $host = $request->headers->get('host'); // نفس العمل بطريقة أخرى
+    $headers = $request->headers->all(); // جلب جميع الهيدرز
+
     return [
         'oneHeader' => $oneHeader,
         'host' => $host,
@@ -92,54 +94,28 @@ Route::get('/get-headers', function (Request $request) {
 });
 
 
+// عمليات القراءة من قاعدة البيانات
 Route::get('/get-tasks', function () {
-    // Use DB لعمليات الداتا بيز
-    // get all
-    $allTasks = DB::table('tasks')->get();
-    // one column of all Records
-    $titleRecords = DB::table('tasks')->get('title'); //as maps
-    $titleRecords2 = DB::table('tasks')->pluck('title'); //as array With out Repeate  => 
-    /*
-        "title" : "programmer,
-        "salary" : 5000,
-        --
-        "title" : "Desiner,
-        "salary" : 6000,
-        --
-        "title" : "Teacher,
-        "salary" : 6000,
-        --
-        $titleRecords2 = FacadesDB::table('tasks')->pluck('title' , 'salary');
-        => 
-        [
-            'programmer' , 5000, 
-            'Designer' , 6000,
-            'Teacher' ,  6000
-        ]
-        -------------
-        $titleRecords2 = FacadesDB::table('tasks')->pluck('salary' , 'title');
-        => 
-        [
-            '5000' , "Programmer", 
-            '6000' , "Designer",
-            -----Teacher' ,  6000--- Does not show it cus is repeated
-        ]
+    $allTasks = DB::table('tasks')->get(); // جلب جميع المهام
 
+    $titleRecords = DB::table('tasks')->get('title'); // جلب عمود العناوين فقط
+    $titleRecords2 = DB::table('tasks')->pluck('title'); // جلب العناوين كمصفوفة بدون تكرار
 
-    */
-    // get one record
+    // جلب سجل واحد فقط بالمعرف
     $task = DB::table('tasks')->find('1');
-    // get by condition
+
+    // جلب بيانات بشرط معين
     $taskCondition = DB::table('tasks')->where('id', 2)->get();
     $taskCondition2 = DB::table('tasks')->where('employee_id', '>', 1)->get();
-    $firstTask = DB::table('tasks')->first();
-    $orderByAcs = DB::table('tasks')->orderBy('title')->get();
-    $orderByDes = DB::table('tasks')->orderBy('title', 'Desc')->get();
-    $lastDeadlineAddedToDB = DB::table('tasks')->latest('deadline')->get();
-    $lastIdAddedToDB = DB::table('tasks')->latest('id')->get();
-    $maxElements = DB::table('tasks')
-        ->limit(1)
-        ->get();
+
+    $firstTask = DB::table('tasks')->first(); // جلب أول سجل في الجدول
+    $orderByAcs = DB::table('tasks')->orderBy('title')->get(); // ترتيب تصاعدي
+    $orderByDes = DB::table('tasks')->orderBy('title', 'Desc')->get(); // ترتيب تنازلي
+
+    $lastDeadlineAddedToDB = DB::table('tasks')->latest('deadline')->get(); // أحدث تاريخ نهاية
+    $lastIdAddedToDB = DB::table('tasks')->latest('id')->get(); // آخر معرف أضيف للجدول
+
+    $maxElements = DB::table('tasks')->limit(1)->get(); // تحديد عدد النتائج
 
     return [
         'tasks' => $allTasks,
@@ -158,8 +134,7 @@ Route::get('/get-tasks', function () {
 });
 
 
-// insert 
-
+// إضافة مهمة جديدة للجدول
 Route::get('create-task', function () {
     $maxElements = DB::table('tasks')
         ->insert([
@@ -168,8 +143,8 @@ Route::get('create-task', function () {
             "tasks" => "\"إعداد خطة المشاريع\", \"متابعة سير العمل\", \"التواصل مع الأطراف\", \"إدارة المخاطر\"",
             "skills" => "\"قيادة قوية\", \"Agile / Scrum\", \"أدوات إدارة المشاريع (Jira, Trello)\", \"اتخاذ قرارات سريعة\"",
             "experience" => "خبرة 3 سنوات في إدارة المشاريع",
-            "created_at" => Carbon::now(), // تعطينا التاريخ الان
-            "updated_at" => Carbon::now(),
+            "created_at" => Carbon::now(), // تاريخ الإنشاء الحالي
+            "updated_at" => Carbon::now(), // تاريخ التحديث الحالي
             "deadline" => "20-11-2025",
             "employee_id" => 1
         ]);
@@ -179,9 +154,10 @@ Route::get('create-task', function () {
     ];
 });
 
-// update values
+
+// تعديل مهمة موجودة
 Route::get('update-task/{id}', function ($id) {
-    if (!DB::table('tasks')->find($id)) {
+    if (!DB::table('tasks')->find($id)) { // التحقق إذا كانت المهمة موجودة
         return response()->json('Not Found', 200);
     } else {
         DB::table('tasks')
@@ -191,27 +167,27 @@ Route::get('update-task/{id}', function ($id) {
             ]);
         return ['message' => 'Task edited successfully'];
     }
-
-    // return back(); //ترجعنا للصفحه الذي كنا فيها سابا
 });
 
 
+// حذف مهمة من الجدول
 Route::get('delete-task/{id}', function ($id) {
     DB::table('tasks')->delete($id);
-
     return [
         'message' => 'task Deleted successfully',
     ];
 });
 
 
-// عشان تكتب اكواد بي اتش بي في الترمنال تكتب 
-// php artisan tinker
-
-
+// عمل تصفح للبيانات بالصفحات
 Route::get('/paginate', function () {
-    $allTasks = DB::table('tasks')->paginate(2);
+    $allTasks = DB::table('tasks')->paginate(2); // عرض عنصرين فقط في الصفحة
     return [
         'tasks' => $allTasks
     ];
 });
+
+// لإنشاء Seeder: 
+// php artisan make:seeder
+// لتجربة الأوامر داخل الطرفية: 
+// php artisan tinker

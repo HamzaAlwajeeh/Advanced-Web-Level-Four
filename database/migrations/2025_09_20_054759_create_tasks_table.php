@@ -19,6 +19,7 @@ return new class extends Migration
             $table->longText('skills');
             $table->String('experience');
             $table->String('deadline');
+            $table->String('status');
             $table->timestamps();
         });
     }
