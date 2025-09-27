@@ -180,6 +180,14 @@ Route::get('create-task', function () {
 });
 
 
+Route::get('delete-task/{id}', function ($id) {
+    DB::table('tasks')->delete($id);
+
+    return [
+        'message' => 'task Deleted successfully',
+    ];
+});
+
 
 // عشان تكتب اكواد بي اتش بي في الترمنال تكتب 
 // php artisan tinker
