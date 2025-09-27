@@ -22,7 +22,10 @@
                         <td class="px-6 py-4">{{ $employee->lastName }}</td>
                         <td class="px-6 py-4">{{ $employee->Age }}</td>
                         <td class="px-6 py-4">{{ $employee->job }}</td>
-                        {{-- <td class="px-6 py-4">{{ $employee->taskName }}</td> --}}
+                        {{-- <td class="px-6 py-4">{{ $taskTitle->title }}</td> --}}
+
+
+                        {{-- <td class="px-6 py-4">{{ $employee->tasks->title }}</td> --}}
                     </tr>
             @endforeach
             </tbody>

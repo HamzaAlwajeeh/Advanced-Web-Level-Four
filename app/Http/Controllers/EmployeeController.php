@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Employee;
+use App\Models\Task;
 
 class EmployeeController extends Controller
 {
     public static function index()
     {
         $employees = Employee::all();
+        // $taskTitle = Task::get('title');
         return view('HW2.users', compact('employees'));
     }
 }

@@ -5,6 +5,7 @@ use App\Models\Job;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\EmployeeController;
+use Illuminate\Http\Request;
 
 $jobs1 = [
     [
@@ -58,3 +59,15 @@ Route::get('/new-jobs', [TaskController::class, 'index'])->name('new-jobs');
 Route::get('/job-details/{id}', [TaskController::class, 'find'])->name('job-details');
 //this will show all users
 Route::get('/users', [EmployeeController::class, 'index'])->name('users');
+
+Route::get('/get-name', function (Request $request) {
+    // php Request
+    // dd($_REQUEST['name']); // يعطيني عنصر واحد فقط
+    // Laravel Request Object
+    $name = $request->input('name'); // يعطيني عنصر واحد فقط
+    $all_data = $request->all(); // يعطيني كل العناصر
+    return [
+        'name' => $name,
+        'allData' => $all_data,
+    ];
+});
