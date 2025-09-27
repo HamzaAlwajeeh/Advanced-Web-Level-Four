@@ -179,6 +179,22 @@ Route::get('create-task', function () {
     ];
 });
 
+// update values
+Route::get('update-task/{id}', function ($id) {
+    if (!DB::table('tasks')->find($id)) {
+        return response()->json('Not Found', 200);
+    } else {
+        DB::table('tasks')
+            ->where('id', $id)
+            ->update([
+                "title" => "بروفشنال قواعد بيانات",
+            ]);
+        return ['message' => 'Task edited successfully'];
+    }
+
+    // return back(); //ترجعنا للصفحه الذي كنا فيها سابا
+});
+
 
 Route::get('delete-task/{id}', function ($id) {
     DB::table('tasks')->delete($id);
