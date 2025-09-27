@@ -5,7 +5,9 @@ use App\Models\Job;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\EmployeeController;
+use Illuminate\Container\Attributes\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB as FacadesDB;
 
 $jobs1 = [
     [
@@ -86,5 +88,56 @@ Route::get('/get-headers', function (Request $request) {
         'oneHeader' => $oneHeader,
         'host' => $host,
         'headers' => $headers
+    ];
+});
+
+
+Route::get('/get-tasks', function () {
+    // Use DB لعمليات الداتا بيز
+    // get all
+    $allTasks = FacadesDB::table('tasks')->get();
+    // one column of all Records
+    $titleRecords = FacadesDB::table('tasks')->get('title'); //as maps
+    $titleRecords2 = FacadesDB::table('tasks')->pluck('title'); //as array With out Repeate  => 
+    /*
+        "title" : "programmer,
+        "salary" : 5000,
+        --
+        "title" : "Desiner,
+        "salary" : 6000,
+        --
+        "title" : "Teacher,
+        "salary" : 6000,
+        --
+        $titleRecords2 = FacadesDB::table('tasks')->pluck('title' , 'salary');
+        => 
+        [
+            'programmer' , 5000, 
+            'Designer' , 6000,
+            'Teacher' ,  6000
+        ]
+        -------------
+        $titleRecords2 = FacadesDB::table('tasks')->pluck('salary' , 'title');
+        => 
+        [
+            '5000' , "Programmer", 
+            '6000' , "Designer",
+            -----Teacher' ,  6000--- Does not show it cus is repeated
+        ]
+
+
+    */
+    // get one record
+    $task = FacadesDB::table('tasks')->find('1');
+    // get by condition
+    $taskCondition = FacadesDB::table('tasks')->where('id', 1)->get();
+    $firstTask = FacadesDB::table('tasks')->first()->get();
+    return [
+        'tasks' => $allTasks,
+        'titleRecords' => $titleRecords,
+        'titleRecords2' => $titleRecords2,
+        'task' => $task,
+        'taskCondition' => $taskCondition,
+        'firstTask' => $firstTask,
     ];
 });
