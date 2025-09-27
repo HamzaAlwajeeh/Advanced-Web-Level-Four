@@ -5,9 +5,9 @@ use App\Models\Job;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\EmployeeController;
-use Illuminate\Container\Attributes\DB;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB as FacadesDB;
+use Illuminate\Support\Facades\DB;
 
 $jobs1 = [
     [
@@ -95,10 +95,10 @@ Route::get('/get-headers', function (Request $request) {
 Route::get('/get-tasks', function () {
     // Use DB لعمليات الداتا بيز
     // get all
-    $allTasks = FacadesDB::table('tasks')->get();
+    $allTasks = DB::table('tasks')->get();
     // one column of all Records
-    $titleRecords = FacadesDB::table('tasks')->get('title'); //as maps
-    $titleRecords2 = FacadesDB::table('tasks')->pluck('title'); //as array With out Repeate  => 
+    $titleRecords = DB::table('tasks')->get('title'); //as maps
+    $titleRecords2 = DB::table('tasks')->pluck('title'); //as array With out Repeate  => 
     /*
         "title" : "programmer,
         "salary" : 5000,
@@ -128,16 +128,31 @@ Route::get('/get-tasks', function () {
 
     */
     // get one record
-    $task = FacadesDB::table('tasks')->find('1');
+    $task = DB::table('tasks')->find('1');
     // get by condition
-    $taskCondition = FacadesDB::table('tasks')->where('id', 1)->get();
-    $firstTask = FacadesDB::table('tasks')->first()->get();
+    $taskCondition = DB::table('tasks')->where('id', 2)->get();
+    $taskCondition2 = DB::table('tasks')->where('employee_id', '>', 1)->get();
+    $firstTask = DB::table('tasks')->first();
+    $orderByAcs = DB::table('tasks')->orderBy('title')->get();
+    $orderByDes = DB::table('tasks')->orderBy('title', 'Desc')->get();
+    $lastDeadlineAddedToDB = DB::table('tasks')->latest('deadline')->get();
+    $lastIdAddedToDB = DB::table('tasks')->latest('id')->get();
+    $maxElements = DB::table('tasks')
+        ->limit(1)
+        ->get();
+
     return [
         'tasks' => $allTasks,
         'titleRecords' => $titleRecords,
         'titleRecords2' => $titleRecords2,
         'task' => $task,
         'taskCondition' => $taskCondition,
+        'taskCondition2' => $taskCondition2,
         'firstTask' => $firstTask,
+        'orderByAcs' => $orderByAcs,
+        'orderByDes' => $orderByDes,
+        'lastDeadlineAddedToDB' => $lastDeadlineAddedToDB,
+        'lastIdAddedToDB' => $lastIdAddedToDB,
+        'maxElements' => $maxElements,
     ];
 });
