@@ -65,9 +65,26 @@ Route::get('/get-name', function (Request $request) {
     // dd($_REQUEST['name']); // يعطيني عنصر واحد فقط
     // Laravel Request Object
     $name = $request->input('name'); // يعطيني عنصر واحد فقط
+    $age = $request->input('age'); // يعطيني عنصر واحد فقط
     $all_data = $request->all(); // يعطيني كل العناصر
     return [
         'name' => $name,
+        'age' => $age,
         'allData' => $all_data,
+    ];
+});
+
+
+
+Route::get('/get-headers', function (Request $request) {
+    // get one header
+    $oneHeader = $request->header('host');
+    $host = $request->headers->get('host');
+    // get All Headers
+    $headers = $request->headers->all();
+    return [
+        'oneHeader' => $oneHeader,
+        'host' => $host,
+        'headers' => $headers
     ];
 });
