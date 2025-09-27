@@ -156,3 +156,30 @@ Route::get('/get-tasks', function () {
         'maxElements' => $maxElements,
     ];
 });
+
+
+// insert 
+
+Route::get('create-task', function () {
+    $maxElements = DB::table('tasks')
+        ->insert([
+            "title" => "مدير قاعده بيانات",
+            "description" => "قوي في ادارة قواعج البيانات",
+            "tasks" => "\"إعداد خطة المشاريع\", \"متابعة سير العمل\", \"التواصل مع الأطراف\", \"إدارة المخاطر\"",
+            "skills" => "\"قيادة قوية\", \"Agile / Scrum\", \"أدوات إدارة المشاريع (Jira, Trello)\", \"اتخاذ قرارات سريعة\"",
+            "experience" => "خبرة 3 سنوات في إدارة المشاريع",
+            "created_at" => Carbon::now(), // تعطينا التاريخ الان
+            "updated_at" => Carbon::now(),
+            "deadline" => "20-11-2025",
+            "employee_id" => 1
+        ]);
+
+    return [
+        'message' => 'task aded successfully',
+    ];
+});
+
+
+
+// عشان تكتب اكواد بي اتش بي في الترمنال تكتب 
+// php artisan tinker
