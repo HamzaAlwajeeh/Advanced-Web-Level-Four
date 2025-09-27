@@ -62,6 +62,11 @@ Route::get('/job-details/{id}', [TaskController::class, 'find'])->name('job-deta
 //this will show all users
 Route::get('/users', [EmployeeController::class, 'index'])->name('users');
 
+
+
+
+
+
 // جلب البيانات من الريكوست
 Route::get('/get-name', function (Request $request) {
     // استدعاء قيمة معينة من الريكوست باستخدام PHP العادي
