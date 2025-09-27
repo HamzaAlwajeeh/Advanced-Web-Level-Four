@@ -207,3 +207,11 @@ Route::get('delete-task/{id}', function ($id) {
 
 // عشان تكتب اكواد بي اتش بي في الترمنال تكتب 
 // php artisan tinker
+
+
+Route::get('/paginate', function () {
+    $allTasks = DB::table('tasks')->paginate(2);
+    return [
+        'tasks' => $allTasks
+    ];
+});
