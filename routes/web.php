@@ -196,3 +196,46 @@ Route::get('/paginate', function () {
 // php artisan make:seeder
 // لتجربة الأوامر داخل الطرفية: 
 // php artisan tinker
+
+
+//--Response--//
+/*
+== Response Types: ==
+[1] String
+[2] Array
+[3] jsonData
+[4] view
+[5] response
+*/
+
+// [1] String
+Route::get('/text-response', function () {
+    return 'simple text';
+});
+
+// [2] Array
+Route::get('/array-response', function () {
+    return [
+        'name' => 'Hamza',
+        'age' => 22
+    ];
+});
+
+// [3] jsonData => you can control of status and headers
+Route::get('/jsonData-response', function () {
+    return response()->json(['firstName' => 'Hamza', 'lastName' => 'Alwajeeh'], 200,);
+});
+
+// [4] view
+Route::get('/view-response', function () {
+    $user = ['id' => 1, 'name' => 'Hamza', 'age' => 22];
+    // return view('home' , compact('user'));
+    // return view('home' , ['user' => $user ]);
+    return view('home', ['user' => $user])->with('user', $user);
+});
+
+
+// [5] response => for control of status and headers
+Route::get('/response-response', function () {
+    return response(['firstName' => 'Hamza', 'lastName' => 'Alwajeeh'], 200);
+});
