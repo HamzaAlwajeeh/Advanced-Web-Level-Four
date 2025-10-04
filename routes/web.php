@@ -240,6 +240,7 @@ Route::get('/view-response', function () {
     return view('home')->with('user', $user);
 });
 
+// another way
 Route::get('/view2-response', function () {
     $user = ['id' => 1, 'name' => 'Hamza', 'age' => 22];
 
