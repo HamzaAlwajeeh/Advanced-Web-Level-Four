@@ -211,6 +211,7 @@ Route::get('/paginate', function () {
 [6] responseWithHeaders
 [7] fileDownLoad
 [8] fileDownLoad
+[8] redirect
 */
 
 // [1] String
@@ -273,6 +274,26 @@ Route::get('/showFile-response', function () {
 Route::get('/downLoadFile-response', function () {
     $path = public_path('files/myFile.pdf');
     return response()->download($path);
+});
+
+
+// [9] redirect
+Route::get('/redi', function () {
+    return redirect('/home'); //route path
+    // return redirect()->route('home'); //route name
+    // return redirect()->away('https://www.google.com'); //for url
+});
+
+// [9] redirect
+Route::get('/back', function () {
+    return back(); //back to same page
+
+});
+
+// [9] redirect input
+Route::get('/back-input', function () {
+    return back()->withInput(); //يرجع لنفس الصفحه مع الاحتفاظ بالمدخلات ان وجدت
+
 });
 
 
