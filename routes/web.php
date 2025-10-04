@@ -198,6 +198,8 @@ Route::get('/paginate', function () {
 // php artisan tinker
 
 
+
+//Saturday - 4/10/2025
 //--Response--//
 /*
 == Response Types: ==
@@ -207,6 +209,8 @@ Route::get('/paginate', function () {
 [4] view
 [5] response
 [6] responseWithHeaders
+[7] fileDownLoad
+[8] fileDownLoad
 */
 
 // [1] String
@@ -232,7 +236,14 @@ Route::get('/view-response', function () {
     $user = ['id' => 1, 'name' => 'Hamza', 'age' => 22];
     // return view('home' , compact('user'));
     // return view('home' , ['user' => $user ]);
-    return view('home', ['user' => $user])->with('user', $user);
+    return view('home')->with('user', $user);
+});
+
+Route::get('/view2-response', function () {
+    $user = ['id' => 1, 'name' => 'Hamza', 'age' => 22];
+
+    return response()->view('home', ['user' => $user], 200)
+        ->header('Content-Type', 'text/html');
 });
 
 
@@ -243,11 +254,38 @@ Route::get('/response-response', function () {
 
 // [6] responseWithHeaders => for control of status and headers
 // status like this: 200 , 201 ...,400
-Route::get('/response-response', function () {
+Route::get('/headers-response', function () {
     return response('Hamza', 200)
         ->header('Content-Type', 'text/plain') // يحدد نوع المحتوى
         ->header('x-Frame-Options', 'DENEY') // يمنع تضمين الصفحه في مشروع اخر
         ->header('Strict-Transport-Security', 'max-age=3176054') //يعطي المستخدم وقت محدد لعرض الصفحه
-        ->header('x-Content-Type-Option', 'nosiff') //يحدد لل اتش تي ام ال محتوى محدد لعرضه يلتزم فيه
+        ->header('x-Content-Type-Option', 'nosiff') //يحدد لل (اتش تي ام ال) محتوى محدد لعرضه يلتزم فيه
     ;
+});
+
+// [7] showfile
+Route::get('/showFile-response', function () {
+    $path = public_path('files/الفصل الاول.pdf');
+    return response()->file($path);
+});
+
+// [8] fileDownLoad
+Route::get('/downLoadFile-response', function () {
+    $path = public_path('files/myFile.pdf');
+    return response()->download($path);
+});
+
+
+//The Cookies
+Route::get('/cookies-response', function () {
+    return response('Hamza', 200)
+        ->cookie(
+            'session|_id', //Name of Cookie
+            'xyz123', //Value of Cookie
+            120, //Time of Cookie => وقت بقاء الكوكيز بالدقيقه
+            null,
+            true,
+            true,
+            'strict'
+        );
 });
