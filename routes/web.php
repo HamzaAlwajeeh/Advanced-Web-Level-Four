@@ -206,6 +206,7 @@ Route::get('/paginate', function () {
 [3] jsonData
 [4] view
 [5] response
+[6] responseWithHeaders
 */
 
 // [1] String
@@ -238,4 +239,15 @@ Route::get('/view-response', function () {
 // [5] response => for control of status and headers
 Route::get('/response-response', function () {
     return response(['firstName' => 'Hamza', 'lastName' => 'Alwajeeh'], 200);
+});
+
+// [6] responseWithHeaders => for control of status and headers
+// status like this: 200 , 201 ...,400
+Route::get('/response-response', function () {
+    return response('Hamza', 200)
+        ->header('Content-Type', 'text/plain') // يحدد نوع المحتوى
+        ->header('x-Frame-Options', 'DENEY') // يمنع تضمين الصفحه في مشروع اخر
+        ->header('Strict-Transport-Security', 'max-age=3176054') //يعطي المستخدم وقت محدد لعرض الصفحه
+        ->header('x-Content-Type-Option', 'nosiff') //يحدد لل اتش تي ام ال محتوى محدد لعرضه يلتزم فيه
+    ;
 });
